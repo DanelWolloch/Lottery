@@ -2,18 +2,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>My First HTML 5 app</title>
-     <script>
-         function ShowMessage() {
-             alert("User Name: " + document.getElementById("txtUserName").value + "\n" + 
-                   "Password: " + document.getElementById("txtPass").value );
-         }
-         function SetDefaultButton() {
-             btn.focus();
-         }
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+    <script src="jquery-1.8.1.min.js"></script>
+    <script>
+        $.support.cors = true;
+        function Check() {
+            var theUrl = "http://www.pais.co.il/Lotto/Pages/RequestsHandler.ashx?Command=Win_Clarification&Game=Lotto&SubGame=Lotto&SearchBy=Range&From=2388&To=2388&UserInput=1%7C2%7c3%7c4%7c5%7c6%7c7%7c&FormType=&stmp=1337358182530"
+            //$.get("http://www.pais.co.il/Lotto/Pages/RequestsHandler.ashx?Command=Win_Clarification&Game=Lotto&SubGame=Lotto&SearchBy=Range&&FormType=&stmp=1337358182530",
+            //{From:'2388', To:'2388', UserInput: 1, }, function (data) {
+            //    alert('page content: ' + data);
+            //    }
+            //);
+            ////alert(document.getElementById("Number1").value);
+                var xmlHttp = null;
+
+            xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", theUrl, false);
+            xmlHttp.send(null);
+            alert (xmlHttp.responseText);
+            //return xmlHttp.responseText;
+            alert("test");
+        }
     </script>
+    <style>
+        .Numbers
+        {
+            width: 25px;
+            margin-left: 3px;
+        }
+    </style>
 </head>
-<body onload="SetDefaultButton()">
-    <hgroup>
+<body dir="rtl">
+    <!--<hgroup>
         <h1>
             Hello World
         </h1>
@@ -22,6 +42,21 @@
     <br />
     <label>Enter password: </label><input type="password" id="txtPass" placeholder="Aa1234567"/>
     <br />
-    <button id="btn" onclick="ShowMessage()" >Click me!</button>
+    <button id="btn" onclick="ShowMessage()" >Click me!</button>-->
+
+    <hgroup>
+        <h1>כמה זכיתי?</h1>
+    </hgroup>
+    <div>
+        <input type="number" class="Numbers" id="Number1" min="1" max="37" />
+        <input type="number" class="Numbers" id="Number2" min="1" max="37" />
+        <input type="number" class="Numbers" id="Number3" min="1" max="37" />
+        <input type="number" class="Numbers" id="Number4" min="1" max="37" />
+        <input type="number" class="Numbers" id="Number5" min="1" max="37" />
+        <input type="number" class="Numbers" id="Number6" min="1" max="37" />
+        <input type="number" class="Numbers" id="Number7" min="1" max="37" />
+    </div>
+
+    <button id="check" onclick="Check()">כמה זכיתי?</button>
 </body>
 </html>
