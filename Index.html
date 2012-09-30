@@ -5,17 +5,49 @@
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
     <script src="jquery-1.8.1.min.js"></script>
     <script>
+        function GetNumberString(number) {
+            if (!isNaN(number)) {
+                if (number < 10 && number > 0) {
+                    return "0" + number;
+                } else {
+                    return number;
+                }
+            } else {
+                // TODO: Handle error not number was entered.
+            }
+        }
+
+        function GetUrl(numberString, lotNum) {
+            // TODO: Add input checks
+            var theUrl = "http://www.pais.co.il/Lotto/Pages/RequestsHandler.ashx?Command=Win_Clarification&Game=Lotto&SubGame=Lotto&SearchBy=Range&From=" + lotNum + "&To=" + lotNum + "&UserInput=" + numberString + "&FormType=&stmp=1337358182530";
+            return theUrl;
+        }
+
+        function getTablesString() {
+            // TODO: make an itaration for each input number and  not hardcoded the ids of each..
+            var tablesNumber = GetNumberString($('#Number1').val()) + "%2C";
+            tablesNumber += GetNumberString($('#Number2').val()) + "%2C";
+            tablesNumber += GetNumberString($('#Number3').val()) + "%2C";
+            tablesNumber += GetNumberString($('#Number4').val()) + "%2C";
+            tablesNumber += GetNumberString($('#Number5').val()) + "%2C";
+            tablesNumber += GetNumberString($('#Number6').val()) + "%2C";
+            tablesNumber += GetNumberString($('#Number7').val());
+            return tablesNumber + "%7C";
+        }
+
         function Check() {
             var select = "select * from html where url="
-            var theUrl = "www.pais.co.il/Lotto/Pages/RequestsHandler.ashx?Command=Win_Clarification&Game=Lotto&SubGame=Lotto&SearchBy=Range&From=2388&To=2388&UserInput=03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06&FormType=&stmp=1337358182530";
+            var theUrl = GetUrl(getTablesString(), 2388);
+
             var yqlQuery = "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(select + '"' + theUrl + '"') + "&callback=?";
-                
+
             $.getJSON(yqlQuery, function (data) {
-                    alert(data.results[0]);
-                }
-            );
+                var winnigPrice = data.results[0].split("<td class=\"PaisSeventh\">")[1].split('<p>')[1].split('</p>')[0];
+                $('#winningPrice').text("זכית ב- " + winnigPrice + " שקלים!");
+            });
         }
     </script>
+    <link rel="stylesheet" href="bootstrap.min.css" />
     <style>
         .Numbers
         {
@@ -38,8 +70,7 @@
         <input type="number" class="Numbers" id="Number7" min="1" max="37" />
     </div>
 
-    <button id="check" onclick="Check()">כמה זכיתי?</button>
-
-    <!--<iframe id="result" src="www.pais.co.il/Lotto/Pages/RequestsHandler.ashx?Command=Win_Clarification&Game=Lotto&SubGame=Lotto&SearchBy=Range&From=2388&To=2388&UserInput=03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06%7C03%2C02%2C05%2C36%2C26%2C27%2C06&FormType=&stmp=1337358182530"></iframe>-->
+    <button class="btn btn-primary" id="check" onclick="Check()">כמה זכיתי?</button>
+    <label id="winningPrice">test</label>
 </body>
 </html>
