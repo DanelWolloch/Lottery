@@ -3,3 +3,8 @@ c:\users\danel\documents\visual studio 2012\Projects\HelloWorld\HelloWorld\bin\H
 c:\users\danel\documents\visual studio 2012\Projects\HelloWorld\HelloWorld\obj\Debug\HelloWorld.csprojResolveAssemblyReference.cache
 c:\users\danel\documents\visual studio 2012\Projects\HelloWorld\HelloWorld\obj\Debug\HelloWorld.dll
 c:\users\danel\documents\visual studio 2012\Projects\HelloWorld\HelloWorld\obj\Debug\HelloWorld.pdb
+C:\Users\Danel\Documents\GitHub\HelloWorldTest\bin\HelloWorld.dll
+C:\Users\Danel\Documents\GitHub\HelloWorldTest\bin\HelloWorld.pdb
+C:\Users\Danel\Documents\GitHub\HelloWorldTest\obj\Debug\HelloWorld.csprojResolveAssemblyReference.cache
+C:\Users\Danel\Documents\GitHub\HelloWorldTest\obj\Debug\HelloWorld.dll
+C:\Users\Danel\Documents\GitHub\HelloWorldTest\obj\Debug\HelloWorld.pdb

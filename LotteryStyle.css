@@ -1,0 +1,14 @@
+﻿body
+{
+    background-color:#E46C0B;
+    text-align:center;
+}
+.Numbers
+{
+    width: 25px;
+    margin-left: 3px;
+}
+#subGame
+{
+    width: 40px;
+}

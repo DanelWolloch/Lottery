@@ -58,6 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Index.html" />
+    <Content Include="Lottery.js" />
+    <Content Include="LotteryStyle.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
