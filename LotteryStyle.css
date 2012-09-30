@@ -8,6 +8,14 @@
     width: 25px;
     margin-left: 3px;
 }
+#lblSubGame
+{
+    margin-top:5px;
+    margin-bottom:10px;
+    color:#C00403;
+    font-size:x-large;
+    font-weight:bold;
+}
 #subGame
 {
     width: 40px;
