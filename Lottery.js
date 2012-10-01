@@ -1,4 +1,6 @@
-﻿function GetNumberString(number) {
+﻿var lineCounter = 1;
+
+function GetNumberString(number) {
     if (!isNaN(number)) {
         if (number < 10 && number > 0) {
             return "0" + number;
@@ -17,21 +19,40 @@ function GetUrl(numberString, subGame) {
 }
 
 function getTablesString() {
-    // TODO: make an itaration for each input number and  not hardcoded the ids of each..
-    var tablesNumber = GetNumberString($('#Number1').val()) + "%2C";
-    tablesNumber += GetNumberString($('#Number2').val()) + "%2C";
-    tablesNumber += GetNumberString($('#Number3').val()) + "%2C";
-    tablesNumber += GetNumberString($('#Number4').val()) + "%2C";
-    tablesNumber += GetNumberString($('#Number5').val()) + "%2C";
-    tablesNumber += GetNumberString($('#Number6').val()) + "%2C";
-    tablesNumber += GetNumberString($('#StrongNumber').val());
-    return tablesNumber + "%7C";
+
+    var tablesNumber = "";
+
+    for (var i = 1; i <= lineCounter; i++) {
+        tablesNumber += getLineNumbers(i) + "%7C";
+    }
+
+    //var tablesNumber = GetNumberString($('#Number1').val()) + "%2C";
+    //tablesNumber += GetNumberString($('#Number2').val()) + "%2C";
+    //tablesNumber += GetNumberString($('#Number3').val()) + "%2C";
+    //tablesNumber += GetNumberString($('#Number4').val()) + "%2C";
+    //tablesNumber += GetNumberString($('#Number5').val()) + "%2C";
+    //tablesNumber += GetNumberString($('#Number6').val()) + "%2C";
+    //tablesNumber += GetNumberString($('#StrongNumber').val());
+    return tablesNumber;
+}
+
+function getLineNumbers(index) {
+    var numOfBoxes = 6
+    var first = $('#line' + index).children();
+    var lineNumbers = GetNumberString($(first).val()) + "%2C";
+    var next = $(first).next();
+    for (var i = 0; i < numOfBoxes; i++) {
+        lineNumbers += GetNumberString($(next).val()) + "%2C";
+        next = $(next).next();
+    }
+
+    return lineNumbers;
 }
 
 function getSubGame() {
     // TODO: Handle invalid inputs...
-    if (!isNaN($('#subGame').val())) {
-        return $('#subGame').val();
+    if (!isNaN($('#txtSubGame').val())) {
+        return $('#txtSubGame').val();
     }
 }
 
@@ -44,5 +65,27 @@ function Check() {
     $.getJSON(yqlQuery, function (data) {
         var winnigPrice = data.results[0].split("<td class=\"PaisSeventh\">")[1].split('<p>')[1].split('</p>')[0];
         $('#winningPrice').text("זכית ב- " + winnigPrice + " שקלים!");
+        $('#winningPrice').show();
     });
+}
+
+function addLine() {
+    $('#btnAdd' + lineCounter).attr('disabled', 'true');
+    $('#btnMinus' + lineCounter).attr('disabled', 'true');
+
+    ++lineCounter;
+
+    var line = "<div id='line" + lineCounter + "'><input type='tel' class='Numbers' id='Number" + lineCounter + "' /><input type='tel' class='Numbers' id='Number" + lineCounter + "' /><input type='tel' class='Numbers' id='Number" + lineCounter + "' /><input type='tel' class='Numbers' id='Number" + lineCounter + "' /><input type='tel' class='Numbers' id='Number" + lineCounter + "' /><input type='tel' class='Numbers' id='Number" + lineCounter + "' /><input type='tel' class='Numbers' id='StrongNumber" + lineCounter + "' /><button class='btn btn-primary addbtns' id='btnAdd" + lineCounter + "' onclick='addLine()'>+</button><button class='btn btn-primary addbtns' id='btnMinus" + lineCounter + "' onclick='removeLine()'>-</button></div>";
+    $('#lines').append(line);
+}
+
+function removeLine() {
+    $('#line' + lineCounter).remove();
+    --lineCounter;
+    $('#btnAdd' + lineCounter).removeAttr('disabled');
+
+    // No need to enable the first line '-'
+    if (lineCounter > 1) {
+        $('#btnMinus' + lineCounter).removeAttr('disabled');
+    }
 }

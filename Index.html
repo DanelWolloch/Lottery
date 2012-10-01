@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>My First HTML 5 app</title>
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="jquery-1.8.1.min.js"></script>
     <script src="Lottery.js"></script>
     <link rel="stylesheet" href="bootstrap.min.css" />
@@ -10,17 +10,24 @@
 </head>
 <body dir="rtl">
     <img id="imgHowMuch" src="HowMuchSmaller.png" />
-    <label id="lblSubGame">הכנס מספר הגרלה:</label><input id="subGame"type="tel" />
-    <div>
-        <input type="tel" class="Numbers" id="Number1" />
-        <input type="tel" class="Numbers" id="Number2" />
-        <input type="tel" class="Numbers" id="Number3" />
-        <input type="tel" class="Numbers" id="Number4" />
-        <input type="tel" class="Numbers" id="Number5" />
-        <input type="tel" class="Numbers" id="Number6" />
-        <input type="tel" class="Numbers" id="StrongNumber" />
+    <br />
+    <span id="lblSubGame"> מספר הגרלה:</span>
+    <input id="txtSubGame" type="tel" />
+    <div id="lines">
+        <div id="line1">
+            <input type="tel" class="Numbers" id="Number1" />
+            <input type="tel" class="Numbers" id="Number2" />
+            <input type="tel" class="Numbers" id="Number3" />
+            <input type="tel" class="Numbers" id="Number4" />
+            <input type="tel" class="Numbers" id="Number5" />
+            <input type="tel" class="Numbers" id="Number6" />
+            <input type="tel" class="Numbers" id="StrongNumber" />
+            <button class="btn btn-primary addbtns" id="btnAdd1" onclick="addLine()">+</button>
+            <button hidden="hidden" class="btn btn-primary addbtns" id="btnMinus1" disabled="disabled" >-</button>
+        </div>
     </div>
     <button class="btn btn-primary" id="check" onclick="Check()">כמה זכיתי?</button>
-    <label id="winningPrice"></label>
+    <br />
+    <span hidden="hidden" class="label label-important" id="winningPrice"></span>
 </body>
 </html>

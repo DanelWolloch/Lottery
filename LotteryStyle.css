@@ -5,8 +5,7 @@
 }
 .Numbers
 {
-    width: 25px;
-    margin-left: 3px;
+    width: 16px;
 }
 #lblSubGame
 {
@@ -16,7 +15,11 @@
     font-size:x-large;
     font-weight:bold;
 }
-#subGame
+#txtSubGame
 {
     width: 40px;
+}
+.addbtns
+{
+    margin-bottom:8px;
 }
