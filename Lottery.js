@@ -117,6 +117,13 @@ function Check() {
 
     $.getJSON(yqlQuery, function (data) {
         var winnigPrice = data.results[0].split("<td class=\"PaisSeventh\">")[1].split('<p>')[1].split('</p>')[0];
+        
+        var isChecked = $('#doubleLotoCheckbox:checked').val() ? true : false;
+        if (isChecked)
+        {
+            winnigPrice *= 2;
+        }
+
         $('#winningPrice').text("זכית ב- " + winnigPrice + " שקלים!");
         $('#winningPrice').fadeIn('slow');
     });
@@ -135,7 +142,7 @@ function addLine() {
                     "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
                     "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
                     "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
-                    "<input type='tel' class='Numbers' id='StrongNumber" + lineCounter + "' />" +
+                    "<input type='tel' class='Numbers StrongNumber' id='StrongNumber" + lineCounter + "' />" +
                     "<button class='btn btn-primary addbtns' id='btnAdd" + lineCounter + "' onclick='addLine()'>+</button>" +
                     "<button class='btn btn-primary addbtns' id='btnMinus" + lineCounter + "' onclick='removeLine()'>-</button>" +
                 "</div>";
