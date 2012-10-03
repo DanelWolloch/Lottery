@@ -16,6 +16,24 @@ function GetNumberString(number) {
     }
 }
 
+function checkDuplicateNumber() {
+    var unique_values = {};
+    var list_of_values = [];
+    $('#lines').children().each(function (index) {
+        $(this).children().each(function (item) {
+            if (item < 7) {
+                if (!unique_values[$(this).val()]) {
+                    unique_values[$(this).val()] = true;
+                    list_of_values.push($(this).val());
+                } else {
+                    $(this).css('background-color', 'red');
+                    throw { message: "אין להכניס אותו מספר פעמיים" };
+                }
+            }
+        });
+    });
+}
+
 function GetUrl(numberString, subGame) {
     var theUrl = "http://www.pais.co.il/Lotto/Pages/RequestsHandler.ashx?Command=Win_Clarification&Game=Lotto&SubGame=Lotto&SearchBy=Range&From=" + subGame + "&To=" + subGame + "&UserInput=" + numberString + "&FormType=&stmp=1337358182530";
     return theUrl;
@@ -37,7 +55,9 @@ function getLineNumbers(index) {
     var first = $('#line' + index).children();
     var next = $(first).next();
     var lineNumbers = "";
+
     try {
+        checkDuplicateNumber();
         lineNumbers = GetNumberString($(first).val()) + "%2C";
     } catch (e) {
         handleError(e, first);
@@ -57,7 +77,10 @@ function getLineNumbers(index) {
 function handleError(exception, element) {
     $('#errorMsg').text(exception.message);
     $('#errorMsg').fadeIn('slow');
-    $(element).first().css('background-color', 'red');
+    if (element.html()) {
+        alert($(element).html());
+        $(element).first().css('background-color', 'red');
+    }
 }
 
 function getSubGame() {
