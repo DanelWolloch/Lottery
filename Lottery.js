@@ -105,7 +105,17 @@ function addLine() {
 
     ++lineCounter;
 
-    var line = "<div id='line" + lineCounter + "'><input type='tel' class='Numbers' id='Number" + lineCounter + "' /><input type='tel' class='Numbers' id='Number" + lineCounter + "' /><input type='tel' class='Numbers' id='Number" + lineCounter + "' /><input type='tel' class='Numbers' id='Number" + lineCounter + "' /><input type='tel' class='Numbers' id='Number" + lineCounter + "' /><input type='tel' class='Numbers' id='Number" + lineCounter + "' /><input type='tel' class='Numbers' id='StrongNumber" + lineCounter + "' /><button class='btn btn-primary addbtns' id='btnAdd" + lineCounter + "' onclick='addLine()'>+</button><button class='btn btn-primary addbtns' id='btnMinus" + lineCounter + "' onclick='removeLine()'>-</button></div>";
+    var line = "<div id='line" + lineCounter + "'>" +
+                    "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
+                    "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
+                    "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
+                    "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
+                    "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
+                    "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
+                    "<input type='tel' class='Numbers' id='StrongNumber" + lineCounter + "' />" +
+                    "<button class='btn btn-primary addbtns' id='btnAdd" + lineCounter + "' onclick='addLine()'>+</button>" +
+                    "<button class='btn btn-primary addbtns' id='btnMinus" + lineCounter + "' onclick='removeLine()'>-</button>" +
+                "</div>";
     $('#lines').append(line).fadeIn('slow');
 }
 
