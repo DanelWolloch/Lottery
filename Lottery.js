@@ -111,7 +111,7 @@ function Check() {
     resetMessages();
 
     var select = "select * from html where url="
-    var theUrl = GetUrl(getTablesString(), 2388);
+    var theUrl = GetUrl(getTablesString(), getSubGame());
 
     var yqlQuery = "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(select + '"' + theUrl + '"') + "&callback=?";
 
@@ -158,4 +158,20 @@ function removeLine() {
     if (lineCounter > 1) {
         $('#btnMinus' + lineCounter).removeAttr('disabled');
     }
+}
+
+function GetLastDrawNumber() {
+    var yqlQuery = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D'www.pais.co.il'&diagnostics=true&callback=?";
+    document.getElementById('BodyContainer').style.visibility = 'hidden';
+    $.ajax({
+        type: "POST",
+        url: yqlQuery,
+        dataType: 'json',
+        async: false,
+        success: function (message) {
+            var lastDraw = message.results[0].split("תוצאות הגרלה מס' ")[1].split('</h4>')[0];
+            $('#txtSubGame').val(lastDraw);
+            document.getElementById('BodyContainer').style.visibility = 'visible';
+        }
+    });
 }

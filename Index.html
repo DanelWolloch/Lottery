@@ -8,44 +8,45 @@
     <link rel="stylesheet" href="bootstrap.min.css" />
     <link rel="stylesheet" href="LotteryStyle.css" />
 </head>
-<body dir="rtl">
-    <img id="imgHowMuch" src="HowMuchSmaller.png" />
-    <br />
-    <span id="lblSubGame"> מספר הגרלה:</span>
-    <input id="txtSubGame" type="tel" />
-    <div id="lines">
-        <div id="line1">
-            <input type="tel" class="Numbers" id="Number1" />
-            <input type="tel" class="Numbers" id="Number2" />
-            <input type="tel" class="Numbers" id="Number3" />
-            <input type="tel" class="Numbers" id="Number4" />
-            <input type="tel" class="Numbers" id="Number5" />
-            <input type="tel" class="Numbers" id="Number6" />
-            <input type="tel" class="Numbers StrongNumber" id="StrongNumber1" />
-            <button class="btn btn-primary addbtns" id="btnAdd1" onclick="addLine()">+</button>
-            <button class="btn btn-primary addbtns" id="btnMinus1" disabled="disabled" >-</button>
-        </div>
-    </div>
-    <br />
-    <input type="checkbox" id="doubleLotoCheckbox" name="doubleLotoCheckbox" value="false"/>דאבל לוטו
-    <br/>
-    <br/>
-    <button class="btn btn-primary" id="check" onclick="Check()">כמה זכיתי?</button>
-    <br />
-    <span hidden="hidden" class="label label-important" id="winningPrice"></span>
-    <span hidden="hidden" class="label label-warning"id="errorMsg"></span>
-    <br />
-    <br />
-    <span id="winningNumbers">
-        המספרים הזוכים: 
+<body dir="rtl" onload="GetLastDrawNumber()">
+    <div id="BodyContainer">
+        <img id="imgHowMuch" src="HowMuchSmaller.png" />
         <br />
-        <span id="winning1" class="badge badge-info">1</span>
-        <span id="winning2" class="badge badge-info">2</span>
-        <span id="winning3" class="badge badge-info">3</span>
-        <span id="winning4" class="badge badge-info">4</span>
-        <span id="winning5" class="badge badge-info">5</span>
-        <span id="winning6" class="badge badge-info">6</span>
-        <span id="winningStrong" class="badge badge-inverse">המספר החזק: 4</span>
-    </span>
+        <span id="lblSubGame">מספר הגרלה:</span>
+        <input id="txtSubGame" type="tel" />
+        <div id="lines">
+            <div id="line1">
+                <input type="tel" class="Numbers" id="Number1" />
+                <input type="tel" class="Numbers" id="Number2" />
+                <input type="tel" class="Numbers" id="Number3" />
+                <input type="tel" class="Numbers" id="Number4" />
+                <input type="tel" class="Numbers" id="Number5" />
+                <input type="tel" class="Numbers" id="Number6" />
+                <input type="tel" class="Numbers StrongNumber" id="StrongNumber1" />
+                <button class="btn btn-primary addbtns" id="btnAdd1" onclick="addLine()">+</button>
+                <button class="btn btn-primary addbtns" id="btnMinus1" disabled="disabled">-</button>
+            </div>
+        </div>
+        <br />
+        <input type="checkbox" id="doubleLotoCheckbox" name="doubleLotoCheckbox" value="false" />דאבל לוטו
+    <br />
+        <br />
+        <button class="btn btn-primary" id="check" onclick="Check()">כמה זכיתי?</button>
+        <br />
+        <span hidden="hidden" class="label label-important" id="winningPrice"></span>
+        <span hidden="hidden" class="label label-warning" id="errorMsg"></span>
+        <br />
+        <br />
+        <span id="winningNumbers">המספרים הזוכים: 
+        <br />
+            <span id="winning1" class="badge badge-info">1</span>
+            <span id="winning2" class="badge badge-info">2</span>
+            <span id="winning3" class="badge badge-info">3</span>
+            <span id="winning4" class="badge badge-info">4</span>
+            <span id="winning5" class="badge badge-info">5</span>
+            <span id="winning6" class="badge badge-info">6</span>
+            <span id="winningStrong" class="badge badge-inverse">המספר החזק: 4</span>
+        </span>
+    </div>
 </body>
 </html>

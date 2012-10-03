@@ -13,3 +13,8 @@ C:\Users\or\Documents\GitHub\Lottery\bin\HelloWorld.pdb
 C:\Users\or\Documents\GitHub\Lottery\obj\Debug\HelloWorld.csprojResolveAssemblyReference.cache
 C:\Users\or\Documents\GitHub\Lottery\obj\Debug\HelloWorld.dll
 C:\Users\or\Documents\GitHub\Lottery\obj\Debug\HelloWorld.pdb
+C:\Users\Danel\Documents\GitHub\Lottery\bin\HelloWorld.dll
+C:\Users\Danel\Documents\GitHub\Lottery\bin\HelloWorld.pdb
+C:\Users\Danel\Documents\GitHub\Lottery\obj\Debug\HelloWorld.csprojResolveAssemblyReference.cache
+C:\Users\Danel\Documents\GitHub\Lottery\obj\Debug\HelloWorld.dll
+C:\Users\Danel\Documents\GitHub\Lottery\obj\Debug\HelloWorld.pdb
