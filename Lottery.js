@@ -17,11 +17,12 @@ function GetNumberString(number) {
 }
 
 function checkDuplicateNumber() {
-    var unique_values = {};
-    var list_of_values = [];
+    var numOfBoxesWithoutStrongNumber = 6
     $('#lines').children().each(function (index) {
+        var unique_values = {};
+        var list_of_values = [];
         $(this).children().each(function (item) {
-            if (item < 7) {
+            if (item < numOfBoxesWithoutStrongNumber) {
                 if (!unique_values[$(this).val()]) {
                     unique_values[$(this).val()] = true;
                     list_of_values.push($(this).val());
@@ -78,15 +79,18 @@ function handleError(exception, element) {
     $('#errorMsg').text(exception.message);
     $('#errorMsg').fadeIn('slow');
     if (element.html()) {
-        alert($(element).html());
         $(element).first().css('background-color', 'red');
     }
 }
 
 function getSubGame() {
-    // TODO: Handle invalid inputs...
-    if (!isNaN($('#txtSubGame').val())) {
+    var subGame = $('#txtSubGame').val();
+
+    if (subGame && !isNaN(subGame) && subGame > 1) {
         return $('#txtSubGame').val();
+    } else {
+        var ex = { message: "מספר ההגרלה אינו תקין" };
+        handleError(ex, $('#txtSubGame'));
     }
 }
 
@@ -118,7 +122,9 @@ function showProgressBar() {
 }
 
 function hideProgressBar() {
-    $('#progressBar').remove();
+    if ($('#progressBar')) {
+        $('#progressBar').remove();
+    }
 }
 
 function Check() {
