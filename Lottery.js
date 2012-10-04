@@ -107,8 +107,21 @@ function resetMessages() {
     });
 }
 
-function Check()
-{
+function showProgressBar() {
+    var progress = '<div id="progressBar"><img src="ajax-loader.gif" />' +
+                   '<br />' +
+                   '<span>בודק סכום זכייה...</span></div>';
+    $('#Waiting').append(progress);
+
+}
+
+function hideProgressBar() {
+    $('#progressBar').remove();
+}
+
+function Check() {
+    showProgressBar()
+
     // Clear the messages in the GUI
     resetMessages();
 
@@ -127,38 +140,34 @@ function Check()
     {
         url: yqlQuery,
         dataType: 'json',
-        success: function (data)
-        {
-            try
-            {
+        success: function (data) {
+            try {
                 // Parse the winning price
                 var winnigPrice = data.results[0].split("<td class=\"PaisSeventh\">")[1].split('<p>')[1].split('</p>')[0];
             }
-            catch (ex)
-            {
+            catch (ex) {
                 // If no winning set to 0
                 winnigPrice = 0;
             }
 
             // Check if double loto checked
             var isChecked = $('#doubleLotoCheckbox:checked').val() ? true : false;
-            if (isChecked)
-            {
+            if (isChecked) {
                 winnigPrice *= 2;
             }
+
+            hideProgressBar();
 
             // Show the winning price
             $('#winningPrice').text("זכית ב- " + winnigPrice + " שקלים!");
             $('#winningPrice').fadeIn('slow');
         },
-        error: function (data)
-        {
-            try
-            {
+        error: function (data) {
+            try {
+                hideProgressBar();
                 throw ({ message: "אירעה שגיאה בזמן הפנייה לשרת. אנא בדוק חיבור אינטרנט." });
             }
-            catch (ex)
-            {
+            catch (ex) {
                 handleError(ex);
             }
         },
@@ -209,6 +218,9 @@ function GetLastDrawNumber() {
             var lastDraw = message.results[0].split("תוצאות הגרלה מס' ")[1].split('</h4>')[0];
             $('#txtSubGame').val(lastDraw);
             document.getElementById('BodyContainer').style.visibility = 'visible';
+            $('#ProgressBar').remove();
         }
     });
+
+
 }

@@ -9,8 +9,14 @@
     <link rel="stylesheet" href="LotteryStyle.css" />
 </head>
 <body dir="rtl" onload="GetLastDrawNumber()">
+    <img id="imgHowMuch" src="HowMuchSmaller.png" />
+    <br />
+    <div id="ProgressBar">
+        <img src="ajax-loader.gif" />
+        <br />
+        <span>טוען את הדף...</span>
+    </div>
     <div id="BodyContainer">
-        <img id="imgHowMuch" src="HowMuchSmaller.png" />
         <br />
         <span id="lblSubGame">מספר הגרלה:</span>
         <input id="txtSubGame" type="tel" />
@@ -36,6 +42,9 @@
         <span hidden="hidden" class="label label-important" id="winningPrice"></span>
         <span hidden="hidden" class="label label-warning" id="errorMsg"></span>
         <br />
+        <div id="Waiting">
+
+        </div>
         <br />
         <span id="winningNumbers">המספרים הזוכים: 
         <br />
