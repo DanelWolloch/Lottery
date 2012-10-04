@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="bootstrap.min.css" />
     <link rel="stylesheet" href="LotteryStyle.css" />
 </head>
-<body dir="rtl" onload="GetLastDrawNumber()">
+<body dir="rtl" onload="load()">
     <img id="imgHowMuch" src="HowMuchSmaller.png" />
     <br />
     <div id="ProgressBar">
@@ -28,7 +28,7 @@
                 <input type="tel" class="Numbers" id="Number4" />
                 <input type="tel" class="Numbers" id="Number5" />
                 <input type="tel" class="Numbers" id="Number6" />
-                <input type="tel" class="Numbers StrongNumber" id="StrongNumber1" />
+                <input type="tel" class="StrongNumber Numbers" id="StrongNumber1" />
                 <button class="btn btn-primary addbtns" id="btnAdd1" onclick="addLine()">+</button>
                 <button class="btn btn-primary addbtns" id="btnMinus1" disabled="disabled">-</button>
             </div>
@@ -55,6 +55,9 @@
             <span id="winning6" class="badge badge-info">6</span>
             <span id="winningStrong" class="badge badge-inverse">המספר החזק: 4</span>
         </span>
+        <br />
+        <br />
+        <span id="nextDraw"></span>
     </div>
 </body>
 </html>

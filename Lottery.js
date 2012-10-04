@@ -220,7 +220,7 @@ function removeLine() {
     }
 }
 
-function GetLastDrawNumber() {
+function load() {
     var yqlQuery = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D'www.pais.co.il'&diagnostics=true&callback=?";
     document.getElementById('BodyContainer').style.visibility = 'hidden';
     $.ajax({
@@ -229,12 +229,32 @@ function GetLastDrawNumber() {
         dataType: 'json',
         async: false,
         success: function (message) {
-            var lastDraw = message.results[0].split("תוצאות הגרלה מס' ")[1].split('</h4>')[0];
-            $('#txtSubGame').val(lastDraw);
+            getNextDrawTime(message);
+            getLastDrawNumber(message);
             document.getElementById('BodyContainer').style.visibility = 'visible';
             $('#ProgressBar').remove();
-        }
+        },
+        error: function (data) {
+            try {
+                hideProgressBar();
+                document.getElementById('BodyContainer').style.visibility = 'visible';
+                $('#ProgressBar').remove();
+                throw ({ message: "אירעה שגיאה בזמן הפנייה לשרת. אנא בדוק חיבור אינטרנט." });
+            }
+            catch (ex) {
+                handleError(ex);
+            }
+        },
+        timeout: 7000
     });
+}
 
+function getLastDrawNumber(data) {
+    var lastDraw = data.results[0].split("תוצאות הגרלה מס' ")[1].split('</h4>')[0];
+    $('#txtSubGame').val(lastDraw);
+}
 
+function getNextDrawTime(data) {
+    var lastDraw = data.results[0].split('<p class="PaisNext">')[1].split('</p>')[0];
+    $('#nextDraw').text(lastDraw);
 }

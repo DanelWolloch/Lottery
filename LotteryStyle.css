@@ -3,13 +3,13 @@
     background-color:#E46C0B;
     text-align:center;
 }
-.Numbers
-{
-    width: 16px;
-}
 .StrongNumber
 {
     background-color:aqua;
+}
+.Numbers
+{
+    width: 16px;
 }
 #lblSubGame
 {
