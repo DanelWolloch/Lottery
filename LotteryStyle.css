@@ -5,6 +5,7 @@
 }
 .StrongNumber
 {
+    width:16px;
     background-color:aqua;
 }
 .Numbers
@@ -26,4 +27,12 @@
 .addbtns
 {
     margin-bottom:8px;
+}
+#lblStrongNumber
+{
+    display:block;
+    margin-right: 120px;
+    /*font-size: 11px;
+    font-style: italic;
+    font-weight:bold;*/
 }

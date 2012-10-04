@@ -202,7 +202,7 @@ function addLine() {
                     "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
                     "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
                     "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
-                    "<input type='tel' class='Numbers StrongNumber' id='StrongNumber" + lineCounter + "' />" +
+                    "<input type='tel' class='Numbers StrongNumber' id='StrongNumber" + lineCounter + "' style='background-color:cyan' />" +
                     "<button class='btn btn-primary addbtns' id='btnAdd" + lineCounter + "' onclick='addLine()'>+</button>" +
                     "<button class='btn btn-primary addbtns' id='btnMinus" + lineCounter + "' onclick='removeLine()'>-</button>" +
                 "</div>";
@@ -229,10 +229,14 @@ function load() {
         dataType: 'json',
         async: false,
         success: function (message) {
-            getNextDrawTime(message);
-            getLastDrawNumber(message);
-            document.getElementById('BodyContainer').style.visibility = 'visible';
-            $('#ProgressBar').remove();
+            try{
+                getNextDrawTime(message);
+                getLastDrawNumber(message);
+            } catch (e) {
+            } finally {
+                document.getElementById('BodyContainer').style.visibility = 'visible';
+                $('#ProgressBar').remove();
+            }
         },
         error: function (data) {
             try {

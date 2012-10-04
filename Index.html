@@ -17,10 +17,12 @@
         <span>טוען את הדף...</span>
     </div>
     <div id="BodyContainer">
-        <br />
         <span id="lblSubGame">מספר הגרלה:</span>
         <input id="txtSubGame" type="tel" />
         <div id="lines">
+            <span id="lblStrongNumber">
+                המספר <br />החזק
+            </span>
             <div id="line1">
                 <input type="tel" class="Numbers" id="Number1" />
                 <input type="tel" class="Numbers" id="Number2" />
@@ -28,14 +30,13 @@
                 <input type="tel" class="Numbers" id="Number4" />
                 <input type="tel" class="Numbers" id="Number5" />
                 <input type="tel" class="Numbers" id="Number6" />
-                <input type="tel" class="StrongNumber Numbers" id="StrongNumber1" />
+                <input type="tel" class="Numbers" id="StrongNumber1" style="background-color:cyan"/>
                 <button class="btn btn-primary addbtns" id="btnAdd1" onclick="addLine()">+</button>
                 <button class="btn btn-primary addbtns" id="btnMinus1" disabled="disabled">-</button>
             </div>
         </div>
         <br />
         <input type="checkbox" id="doubleLotoCheckbox" name="doubleLotoCheckbox" value="false" />דאבל לוטו
-        <br />
         <br />
         <button class="btn btn-primary" id="check" onclick="Check()">כמה זכיתי?</button>
         <br />
@@ -55,7 +56,6 @@
             <span id="winning6" class="badge badge-info">6</span>
             <span id="winningStrong" class="badge badge-inverse">המספר החזק: 4</span>
         </span>
-        <br />
         <br />
         <span id="nextDraw"></span>
     </div>
