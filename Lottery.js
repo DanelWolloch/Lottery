@@ -92,9 +92,11 @@ function getSubGame() {
 
 function resetMessages() {
     if ($('#winningPrice').is(':visible')) {
+        $('#winningPrice').text('');
         $('#winningPrice').fadeOut('slow');
     }
     if ($('#errorMsg').is(':visible')) {
+        $('#errorMsg').text('');
         $('#errorMsg').fadeOut('slow');
     }
 
@@ -130,49 +132,55 @@ function Check() {
     var theUrl = GetUrl(getTablesString(), getSubGame());
     var yqlQuery = "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(select + '"' + theUrl + '"') + "&callback=?";
 
-    // Get the HTML page with the response for the loto results
-    // Url: The url to request
-    // DataType: Jason request type.
-    // Success: The function that parsing the html response and show the winning price
-    // Error: Error handling when the website is unreachable
-    // Timeout: The timeout to get the response
-    $.ajax(
-    {
-        url: yqlQuery,
-        dataType: 'json',
-        success: function (data) {
-            try {
-                // Parse the winning price
-                var winnigPrice = data.results[0].split("<td class=\"PaisSeventh\">")[1].split('<p>')[1].split('</p>')[0];
-            }
-            catch (ex) {
-                // If no winning set to 0
-                winnigPrice = 0;
-            }
+    // Check if there was an error with the inputs
+    if (!$('#errorMsg').text()) {
 
-            // Check if double loto checked
-            var isChecked = $('#doubleLotoCheckbox:checked').val() ? true : false;
-            if (isChecked) {
-                winnigPrice *= 2;
-            }
+        // Get the HTML page with the response for the loto results
+        // Url: The url to request
+        // DataType: Jason request type.
+        // Success: The function that parsing the html response and show the winning price
+        // Error: Error handling when the website is unreachable
+        // Timeout: The timeout to get the response
+        $.ajax(
+        {
+            url: yqlQuery,
+            dataType: 'json',
+            success: function (data) {
+                try {
+                    // Parse the winning price
+                    var winnigPrice = data.results[0].split("<td class=\"PaisSeventh\">")[1].split('<p>')[1].split('</p>')[0];
+                }
+                catch (ex) {
+                    // If no winning set to 0
+                    winnigPrice = 0;
+                }
 
-            hideProgressBar();
+                // Check if double loto checked
+                var isChecked = $('#doubleLotoCheckbox:checked').val() ? true : false;
+                if (isChecked) {
+                    winnigPrice *= 2;
+                }
 
-            // Show the winning price
-            $('#winningPrice').text("זכית ב- " + winnigPrice + " שקלים!");
-            $('#winningPrice').fadeIn('slow');
-        },
-        error: function (data) {
-            try {
                 hideProgressBar();
-                throw ({ message: "אירעה שגיאה בזמן הפנייה לשרת. אנא בדוק חיבור אינטרנט." });
-            }
-            catch (ex) {
-                handleError(ex);
-            }
-        },
-        timeout: 7000
-    });
+
+                // Show the winning price
+                $('#winningPrice').text("זכית ב- " + winnigPrice + " שקלים!");
+                $('#winningPrice').fadeIn('slow');
+            },
+            error: function (data) {
+                try {
+                    hideProgressBar();
+                    throw ({ message: "אירעה שגיאה בזמן הפנייה לשרת. אנא בדוק חיבור אינטרנט." });
+                }
+                catch (ex) {
+                    handleError(ex);
+                }
+            },
+            timeout: 7000
+        });
+    } else {
+        hideProgressBar();
+    }
 }
 
 function addLine() {
