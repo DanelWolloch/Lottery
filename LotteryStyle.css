@@ -3,11 +3,6 @@
     background-color:#E46C0B;
     text-align:center;
 }
-.StrongNumber
-{
-    width:16px;
-    background-color:aqua;
-}
 .Numbers
 {
     width: 16px;
@@ -32,7 +27,8 @@
 {
     display:block;
     margin-right: 120px;
-    /*font-size: 11px;
-    font-style: italic;
-    font-weight:bold;*/
+}
+.added
+{
+    margin-left:4px;
 }

@@ -55,6 +55,7 @@ function getLineNumbers(index) {
     var numOfBoxes = 6
     var first = $('#line' + index).children();
     var next = $(first).next();
+    
     var lineNumbers = "";
 
     try {
@@ -195,15 +196,16 @@ function addLine() {
 
     ++lineCounter;
 
+    // Most ugly thing ever! 
     var line = "<div id='line" + lineCounter + "'>" +
-                    "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
-                    "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
-                    "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
-                    "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
-                    "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
-                    "<input type='tel' class='Numbers' id='Number" + lineCounter + "' />" +
-                    "<input type='tel' class='Numbers StrongNumber' id='StrongNumber" + lineCounter + "' style='background-color:cyan' />" +
-                    "<button class='btn btn-primary addbtns' id='btnAdd" + lineCounter + "' onclick='addLine()'>+</button>" +
+                    "<input type='tel' class='Numbers added' id='Number" + lineCounter + "1' />" +
+                    "<input type='tel' class='Numbers added' id='Number" + lineCounter + "2' />" +
+                    "<input type='tel' class='Numbers added' id='Number" + lineCounter + "3' />" +
+                    "<input type='tel' class='Numbers added' id='Number" + lineCounter + "4' />" +
+                    "<input type='tel' class='Numbers added' id='Number" + lineCounter + "5' />" +
+                    "<input type='tel' class='Numbers added' id='Number" + lineCounter + "6' />" +
+                    "<input type='tel' class='Numbers StrongNumber added' id='StrongNumber" + lineCounter + "' style='background-color:cyan' />" +
+                    "<button class='btn btn-primary addbtns added' id='btnAdd" + lineCounter + "' onclick='addLine()'>+</button>" +
                     "<button class='btn btn-primary addbtns' id='btnMinus" + lineCounter + "' onclick='removeLine()'>-</button>" +
                 "</div>";
     $('#lines').append(line).fadeIn('slow');
