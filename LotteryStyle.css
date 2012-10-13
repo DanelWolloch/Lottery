@@ -32,3 +32,19 @@
 {
     margin-left:4px;
 }
+#container {
+    position: relative;
+}
+
+#navi,
+#errori, 
+#infoi {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+#errori,
+#infoi {
+    z-index: 10;
+}

@@ -135,9 +135,13 @@ function Check() {
     resetMessages();
 
     // Get the URL query to the pais site using yql
-    var select = "select * from html where url="
-    var theUrl = GetUrl(getTablesString(), getSubGame());
+    var select = "select * from html where url=";
+    var drawNumber = getSubGame();
+    var theUrl = GetUrl(getTablesString(), drawNumber);
     var yqlQuery = "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(select + '"' + theUrl + '"') + "&callback=?";
+
+    // Set new draw results
+    GetDrawResults(drawNumber);
 
     // Check if there was an error with the inputs
     if (!$('#errorMsg').text()) {
@@ -154,7 +158,7 @@ function Check() {
             dataType: 'json',
             success: function (data) {
                 try {
-                    // Parse the winning price
+                   // Parse the winning price
                     var winnigPrice = data.results[0].split("<td class=\"PaisSeventh\">")[1].split('<p>')[1].split('</p>')[0];
                 }
                 catch (ex) {
@@ -231,10 +235,18 @@ function load() {
         dataType: 'json',
         async: false,
         success: function (message) {
-            try{
+            try {
+                // date of the next draw (also print it into screen)
                 getNextDrawTime(message);
-                getLastDrawNumber(message);
+                // last draw's number - both print into screen and return the draw number
+                var lastDrawNumber = getLastDrawNumber(message);
+                // set the draw's winning numbers - print it into screen (sets the last draw at loading)
+                GetDrawResults(lastDrawNumber);
             } catch (e) {
+                // try again
+                getNextDrawTime(message);
+                var lastDrawNumber = getLastDrawNumber(message);
+                GetDrawResults(lastDrawNumber);
             } finally {
                 document.getElementById('BodyContainer').style.visibility = 'visible';
                 $('#ProgressBar').remove();
@@ -258,9 +270,44 @@ function load() {
 function getLastDrawNumber(data) {
     var lastDraw = data.results[0].split("תוצאות הגרלה מס' ")[1].split('</h4>')[0];
     $('#txtSubGame').val(lastDraw);
+    return lastDraw;
 }
 
 function getNextDrawTime(data) {
     var lastDraw = data.results[0].split('<p class="PaisNext">')[1].split('</p>')[0];
     $('#nextDraw').text(lastDraw);
+}
+
+function GetDrawResults(drawNumber) {
+    document.getElementById('navi').style.visibility = 'hidden';
+    document.getElementById('errori').style.visibility = 'hidden';
+    document.getElementById('infoi').style.visibility = 'visible';
+    var yqlQuery = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D'http%3A%2F%2Fwww.pais.co.il%2FLotto%2FPages%2FResultsArchive.aspx'&diagnostics=true&callback=?";
+    $.ajax({
+        type: "POST",
+        url: yqlQuery,
+        data: { PaisFromRange: drawNumber, PaisToRange: drawNumber , PaisRangeSearchType: "Range"},
+        dataType: 'json',
+        async: false,
+        success: function (message) {
+            try
+            {
+                var drawResults = message.results[0].split(drawNumber)[1].split("PaisList")[1].split('<ul>')[1].split('</ul>')[0].split('<li>');
+                for (i = 1; i < 7; i++) {
+                    var currNumber = drawResults[i].split('<p>')[1].split('</p>')[0];
+                    $('#winning' + i).text(currNumber);
+                }
+
+                var danielIsStronger = message.results[0].split(drawNumber)[1].split("PaisStrong")[1].split("<p>")[1].split("</p>")[0];
+                $('#winningStrong').text("המספר החזק: " + danielIsStronger);
+                document.getElementById('navi').style.visibility = 'visible';
+                document.getElementById('infoi').style.visibility = 'hidden';
+            }
+            catch (e) {
+                document.getElementById('navi').style.visibility = 'hidden';
+                document.getElementById('infoi').style.visibility = 'hidden';
+                document.getElementById('errori').style.visibility = 'visible';
+            }
+        }
+    });
 }
