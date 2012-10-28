@@ -1,4 +1,5 @@
 ﻿var lineCounter = 1;
+var cachedLastDrawNumber = -1; // Cache to the draw number - we dont want to check any way..
 
 function GetNumberString(number) {
     if (!number) {
@@ -129,6 +130,14 @@ function hideProgressBar() {
 }
 
 function Check() {
+    var drawNumber = getSubGame();
+    if (drawNumber != cachedLastDrawNumber) {
+        cachedCheck();
+    }
+}
+
+function cachedCheck() {
+
     showProgressBar()
 
     // Clear the messages in the GUI
@@ -177,6 +186,7 @@ function Check() {
                 // Show the winning price
                 $('#winningPrice').text("זכית ב- " + winnigPrice + " שקלים!");
                 $('#winningPrice').fadeIn('slow');
+                cachedLastDrawNumber = drawNumber;
             },
             error: function (data) {
                 try {
@@ -279,35 +289,38 @@ function getNextDrawTime(data) {
 }
 
 function GetDrawResults(drawNumber) {
-    document.getElementById('navi').style.visibility = 'hidden';
-    document.getElementById('errori').style.visibility = 'hidden';
-    document.getElementById('infoi').style.visibility = 'visible';
-    var yqlQuery = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D'http%3A%2F%2Fwww.pais.co.il%2FLotto%2FPages%2FResultsArchive.aspx'&diagnostics=true&callback=?";
-    $.ajax({
-        type: "POST",
-        url: yqlQuery,
-        data: { PaisFromRange: drawNumber, PaisToRange: drawNumber , PaisRangeSearchType: "Range"},
-        dataType: 'json',
-        async: false,
-        success: function (message) {
-            try
-            {
-                var drawResults = message.results[0].split(drawNumber)[1].split("PaisList")[1].split('<ul>')[1].split('</ul>')[0].split('<li>');
-                for (i = 1; i < 7; i++) {
-                    var currNumber = drawResults[i].split('<p>')[1].split('</p>')[0];
-                    $('#winning' + i).text(currNumber);
-                }
+    if (drawNumber != cachedLastDrawNumber)
+    {
+        document.getElementById('navi').style.visibility = 'hidden';
+        document.getElementById('errori').style.visibility = 'hidden';
+        document.getElementById('infoi').style.visibility = 'visible';
+        var yqlQuery = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D'http%3A%2F%2Fwww.pais.co.il%2FLotto%2FPages%2FResultsArchive.aspx'&diagnostics=true&callback=?";
+        $.ajax({
+            type: "POST",
+            url: yqlQuery,
+            data: { PaisFromRange: drawNumber, PaisToRange: drawNumber, PaisRangeSearchType: "Range" },
+            dataType: 'json',
+            async: false,
+            success: function (message) {
+                try {
+                    var drawResults = message.results[0].split(drawNumber)[1].split("PaisList")[1].split('<ul>')[1].split('</ul>')[0].split('<li>');
+                    for (i = 1; i < 7; i++) {
+                        var currNumber = drawResults[i].split('<p>')[1].split('</p>')[0];
+                        $('#winning' + i).text(currNumber);
+                    }
 
-                var danielIsStronger = message.results[0].split(drawNumber)[1].split("PaisStrong")[1].split("<p>")[1].split("</p>")[0];
-                $('#winningStrong').text("המספר החזק: " + danielIsStronger);
-                document.getElementById('navi').style.visibility = 'visible';
-                document.getElementById('infoi').style.visibility = 'hidden';
+                    var danielIsStronger = message.results[0].split(drawNumber)[1].split("PaisStrong")[1].split("<p>")[1].split("</p>")[0];
+                    $('#winningStrong').text("המספר החזק: " + danielIsStronger);
+                    document.getElementById('navi').style.visibility = 'visible';
+                    document.getElementById('infoi').style.visibility = 'hidden';
+                    cachedLastDrawNumber = drawNumber;
+                }
+                catch (e) {
+                    document.getElementById('navi').style.visibility = 'hidden';
+                    document.getElementById('infoi').style.visibility = 'hidden';
+                    document.getElementById('errori').style.visibility = 'visible';
+                }
             }
-            catch (e) {
-                document.getElementById('navi').style.visibility = 'hidden';
-                document.getElementById('infoi').style.visibility = 'hidden';
-                document.getElementById('errori').style.visibility = 'visible';
-            }
-        }
-    });
+        });
+    }
 }
